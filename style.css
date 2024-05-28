@@ -115,9 +115,8 @@ a:hover:before {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     padding: 1rem;
-    height: 95vh;
 }
 
 .frame {
@@ -156,7 +155,7 @@ a:hover:before {
     }
 }
 
-#help {
+dialog {
     background-color: transparent;
     border: none;
     backdrop-filter: blur(16px);
@@ -170,7 +169,7 @@ a:hover:before {
     z-index: 2;
 }
 
-#help[open] {
+dialog[open] {
     animation: fadeIn .5s ease forwards;
 }
 
@@ -184,7 +183,7 @@ a:hover:before {
     }
 }
 
-#info {
+dialog {
     justify-content: space-between;
     color: var(--accentcolor);
     border: none;
@@ -192,7 +191,7 @@ a:hover:before {
     top: 0;
     left: 0;
     width: auto;
-    height: fit-content;
+    height: 100%;
     max-width: 100%;
     margin: 1rem;
     padding: 3rem;
@@ -200,21 +199,26 @@ a:hover:before {
 }
 
 @media screen and (min-width: 1200px) {
-    #info {
+    dialog {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         max-width: 60rem;
-        height: fit-content;
+        height: 100%;
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+
 }
 
 #helpButton {
     margin-block: 1rem;
 }
 
-#info ol li::marker {
+#info ol li::marker, #settings ol li::marker {
     font-size: 2rem;
     font-weight: var(--bold);
     color: var(--accentcolor2);
@@ -223,6 +227,7 @@ a:hover:before {
 .options {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: .5rem;
     min-height: 1rem;
     background-color: var(--dark3);
@@ -231,6 +236,8 @@ a:hover:before {
     padding-block: .5rem;
     padding-inline: 2rem;
     border-radius: 5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 
 .timer-container {
@@ -245,7 +252,7 @@ a:hover:before {
 .timer-container span {
     font-family: var(--timerfont);
     font-weight: var(--bold);
-    font-size: 8rem;
+    font-size: 6rem;
     text-align: center;
     color: var(--accentcolor2);
 }
@@ -284,6 +291,58 @@ a:hover:before {
     fill: var(--light1);
     height: 2rem;
     aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controls{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 95%;
+}
+
+.input {
+    font-family: var(--mainfont);
+    font-size: 1rem;
+    color: var(--light1);
+    background-color: var(--dark3);
+    border: 2px solid var(--dark4);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: var(--light3);
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--accentcolor2);
+    background-color: var(--dark2);
+}
+
+.input:disabled {
+    background-color: var(--dark1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 768px) {
+    .input {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .input {
+        font-size: 1.2rem;
+    }
 }
 
 

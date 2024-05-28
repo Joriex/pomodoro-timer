@@ -16,6 +16,9 @@ sessionCounterFrontend.innerHTML = sessionCounter;
 let sessionDuration = 1501000;
 let pauseDuration = 301000;
 
+let newSessionDuration = 1501000;
+let newPauseDuration = 301000;
+
 let sessionTimerId, breakTimerId;
 
 let timerRunning = false;
@@ -51,6 +54,13 @@ const startTimer = () => {
 
         let startTime = performance.now();
         let elapsedTime = 0;
+
+        if(newSessionDuration !== sessionDuration){
+            sessionDuration = newSessionDuration;
+        }
+        if(newPauseDuration !== pauseDuration){
+            pauseDuration = newPauseDuration;
+        }
 
         const updateTimer = (time) => {
             elapsedTime += time - startTime;
@@ -177,6 +187,12 @@ const startBreakTimer = () => {
             breakTimerId = requestAnimationFrame(updateTimer);
         } else {
             stopBreakTimer();
+            if(newSessionDuration !== sessionDuration){
+                sessionDuration = newSessionDuration;
+            }
+            if(newPauseDuration !== pauseDuration){
+                pauseDuration = newPauseDuration;
+            }
             startTimer();
         }
     };
@@ -229,6 +245,20 @@ const backgroundTimer = () => {
 const showHelp = () => {
     const help = document.getElementById("help");
     help.show();
+}
+
+const showSettings = () => {
+    const settings = document.getElementById("settings");
+    document.getElementById("focusTime").value = Math.round(sessionDuration / (1000 * 60));
+    document.getElementById("pauseTime").value = Math.round(pauseDuration / (1000 * 60));
+    settings.show();
+}
+
+const updateSettings = () => {
+    newSessionDuration = document.getElementById("focusTime").value * (1000 * 60);
+    newPauseDuration = document.getElementById("pauseTime").value * (1000 * 60);
+    document.getElementById("settings").close();
+    alert("Die neuen Zeiten gelten ab Beginn der nächsten Fokusphase.")
 }
 
 // Warnen wenn der Nutzer den Tab schließen möchte
