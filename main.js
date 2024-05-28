@@ -16,8 +16,8 @@ sessionCounterFrontend.innerHTML = sessionCounter;
 let sessionDuration = 1501000;
 let pauseDuration = 301000;
 
-let newSessionDuration = 1501000;
-let newPauseDuration = 301000;
+let settingSessionDuration = 1501000;
+let settingPauseDuration = 301000;
 
 let sessionTimerId, breakTimerId;
 
@@ -55,11 +55,11 @@ const startTimer = () => {
         let startTime = performance.now();
         let elapsedTime = 0;
 
-        if(newSessionDuration !== sessionDuration){
-            sessionDuration = newSessionDuration;
+        if(settingSessionDuration !== sessionDuration){
+            sessionDuration = settingSessionDuration;
         }
-        if(newPauseDuration !== pauseDuration){
-            pauseDuration = newPauseDuration;
+        if(settingPauseDuration !== pauseDuration){
+            pauseDuration = settingPauseDuration;
         }
 
         const updateTimer = (time) => {
@@ -141,7 +141,7 @@ const stopBreakTimer = () => {
     pause.classList.remove("disabled");
     abort.classList.remove("disabled");
 
-    pauseDuration = 301000;
+    pauseDuration = settingPauseDuration;
     minutes.innerHTML = "25";
     seconds.innerHTML = "00";
 
@@ -187,11 +187,11 @@ const startBreakTimer = () => {
             breakTimerId = requestAnimationFrame(updateTimer);
         } else {
             stopBreakTimer();
-            if(newSessionDuration !== sessionDuration){
-                sessionDuration = newSessionDuration;
+            if(settingSessionDuration !== sessionDuration){
+                sessionDuration = settingSessionDuration;
             }
-            if(newPauseDuration !== pauseDuration){
-                pauseDuration = newPauseDuration;
+            if(settingPauseDuration !== pauseDuration){
+                pauseDuration = settingPauseDuration;
             }
             startTimer();
         }
@@ -214,7 +214,7 @@ const resetApp = () => {
     sessionCounter = 1;
     sessionCounterFrontend.innerHTML = sessionCounter;
 
-    sessionDuration = 1501000;
+    sessionDuration = settingSessionDuration;
 
     start.classList.remove("disabled");
     abort.classList.add("disabled");
@@ -255,8 +255,8 @@ const showSettings = () => {
 }
 
 const updateSettings = () => {
-    newSessionDuration = document.getElementById("focusTime").value * (1000 * 60);
-    newPauseDuration = document.getElementById("pauseTime").value * (1000 * 60);
+    settingSessionDuration = document.getElementById("focusTime").value * (1000 * 60);
+    settingPauseDuration = document.getElementById("pauseTime").value * (1000 * 60);
     document.getElementById("settings").close();
     alert("Die neuen Zeiten gelten ab Beginn der nächsten Fokusphase.")
 }
