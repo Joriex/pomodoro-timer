@@ -126,7 +126,7 @@ const stopTimer = () => {
     document.title = "Pomodoro Timer"
 
     cancelAnimationFrame(sessionTimerId);
-    sessionDuration = 1501000;
+    sessionDuration = settingSessionDuration;
 
     minutes.innerHTML = "--";
     seconds.innerHTML = "--";
@@ -142,8 +142,8 @@ const stopBreakTimer = () => {
     abort.classList.remove("disabled");
 
     pauseDuration = settingPauseDuration;
-    minutes.innerHTML = "25";
-    seconds.innerHTML = "00";
+    minutes.innerHTML = Math.floor((settingPauseDuration % (1000 * 60 * 60)) / (1000 * 60)).toString();
+    seconds.innerHTML = Math.floor((settingPauseDuration % (1000 * 60)) / 1000).toString();
 
     timerRunning = false;
     cancelAnimationFrame(breakTimerId);
@@ -220,8 +220,8 @@ const resetApp = () => {
     abort.classList.add("disabled");
     pause.classList.add("disabled");
 
-    minutes.innerHTML = "25";
-    seconds.innerHTML = "00";
+    minutes.innerHTML = Math.floor((settingSessionDuration % (1000 * 60 * 60)) / (1000 * 60)).toString();
+    seconds.innerHTML =  Math.floor((settingSessionDuration % (1000 * 60)) / 1000).toString().padStart(2, "0");
 }
 
 // Prüfen, ob der Tab im Hintergrund ist
@@ -249,14 +249,14 @@ const showHelp = () => {
 
 const showSettings = () => {
     const settings = document.getElementById("settings");
-    document.getElementById("focusTime").value = Math.round(sessionDuration / (1000 * 60));
-    document.getElementById("pauseTime").value = Math.round(pauseDuration / (1000 * 60));
+    document.getElementById("focusTime").value = Math.floor((sessionDuration % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("pauseTime").value = Math.floor((pauseDuration % (1000 * 60 * 60)) / (1000 * 60));;
     settings.show();
 }
 
 const updateSettings = () => {
-    settingSessionDuration = document.getElementById("focusTime").value * (1000 * 60);
-    settingPauseDuration = document.getElementById("pauseTime").value * (1000 * 60);
+    settingSessionDuration = Math.floor(document.getElementById("focusTime").value * (1000 * 60));
+    settingPauseDuration = Math.floor(document.getElementById("pauseTime").value * (1000 * 60));
     document.getElementById("settings").close();
     alert("Die neuen Zeiten gelten ab Beginn der nächsten Fokusphase.")
 }
