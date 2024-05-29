@@ -143,7 +143,7 @@ const stopBreakTimer = () => {
 
     pauseDuration = settingPauseDuration;
     minutes.innerHTML = Math.floor((settingPauseDuration % (1000 * 60 * 60)) / (1000 * 60)).toString();
-    seconds.innerHTML = Math.floor((settingPauseDuration % (1000 * 60)) / 1000).toString();
+    seconds.innerHTML = Math.floor((settingPauseDuration % (1000 * 60)) / 1000).toString().padStart(2, "0");
 
     timerRunning = false;
     cancelAnimationFrame(breakTimerId);
@@ -249,8 +249,8 @@ const showHelp = () => {
 
 const showSettings = () => {
     const settings = document.getElementById("settings");
-    document.getElementById("focusTime").value = Math.floor((sessionDuration % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("pauseTime").value = Math.floor((pauseDuration % (1000 * 60 * 60)) / (1000 * 60));;
+    document.getElementById("focusTime").value = Math.floor((settingSessionDuration % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("pauseTime").value = Math.floor((settingPauseDuration % (1000 * 60 * 60)) / (1000 * 60));;
     settings.show();
 }
 
